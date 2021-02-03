@@ -18,9 +18,9 @@ struct MoonSign: Content {
     var sign: String
 }
 
-let semaphore = DispatchSemaphore(value: 1)
-
 struct SignController: RouteCollection {
+    private let semaphore = DispatchSemaphore(value: 1)
+    
     func boot(routes: RoutesBuilder) throws {
         let sign = routes.grouped("sign")
         sign.get("moon", use: moonSign)
