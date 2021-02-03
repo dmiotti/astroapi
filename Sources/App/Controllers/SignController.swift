@@ -30,7 +30,7 @@ struct SignController: RouteCollection {
         let birth = try req.query.decode(BirthMoment.self)
         
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd/MM/yyyy'T'HH:mm"
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm"
         dateFormatter.timeZone = TimeZone(abbreviation: birth.tz)
         
         guard let formattedDate = dateFormatter.date(from: birth.dt) else {
