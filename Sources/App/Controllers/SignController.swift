@@ -9,21 +9,21 @@ import Foundation
 import Vapor
 import SwissEphemeris
 
-struct BirthMoment: Content {
-    var dt: String
-    var tz: String
-}
-
-struct MoonSign: Content {
-    var sign: String
-}
-
 struct SignController: RouteCollection {
-    private let semaphore = DispatchSemaphore(value: 1)
-    
     func boot(routes: RoutesBuilder) throws {
         let sign = routes.grouped("sign")
         sign.get("moon", use: moonSign)
+    }
+    
+    private let semaphore = DispatchSemaphore(value: 1)
+    
+    struct BirthMoment: Content {
+        var dt: String
+        var tz: String
+    }
+
+    struct MoonSign: Content {
+        var sign: String
     }
     
     func moonSign(req: Request) throws -> MoonSign {
