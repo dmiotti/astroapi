@@ -1,7 +1,8 @@
 import Vapor
 
-// configures your application
+// configures application
 public func configure(_ app: Application) throws {
+    // Cross-Origin Resource Sharing
     let corsConfiguration = CORSMiddleware.Configuration(
         allowedOrigin: .all,
         allowedMethods: [.GET, .POST, .PUT, .OPTIONS, .DELETE, .PATCH],
@@ -9,13 +10,13 @@ public func configure(_ app: Application) throws {
     )
     let cors = CORSMiddleware(configuration: corsConfiguration)
 
-    // Only add this if you want to enable the default per-route logging
+    // per-route logging
     let routeLogging = RouteLoggingMiddleware(logLevel: .info)
 
-    // Add the default error middleware
+    // default error middleware
     let error = ErrorMiddleware.default(environment: app.environment)
     
-    // Clear any existing middleware.
+    // clear any existing middleware.
     app.middleware = .init()
     app.middleware.use(cors)
     app.middleware.use(routeLogging)

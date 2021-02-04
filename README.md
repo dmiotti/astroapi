@@ -33,4 +33,4 @@ swift test
 
 ## Deployments
 
-Pushing on master trigger a deployment to [Heroku](https://dashboard.heroku.com/apps/astrobistrot-api) and is available at [api.astrobistrot.com](https://api.astrobistrot.com).
+Pushing on `master` triggers a deployment to [Heroku](https://dashboard.heroku.com/apps/astrobistrot-api) and is available at [api.astrobistrot.com](https://api.astrobistrot.com).

@@ -9,25 +9,23 @@ import Foundation
 import Vapor
 import SwissEphemeris
 
+struct GetMoonSignParams: Content {
+    var dt: String
+    var tz: String
+}
+
 struct SignController: RouteCollection {
+
     func boot(routes: RoutesBuilder) throws {
         let sign = routes.grouped("sign")
-        sign.get("moon", use: moonSign)
+        sign.get("moon", use: getMoonSign)
     }
     
+    // the Swiss Ephemeris library is not thread safe
     private let semaphore = DispatchSemaphore(value: 1)
     
-    struct BirthMoment: Content {
-        var dt: String
-        var tz: String
-    }
-
-    struct MoonSign: Content {
-        var sign: String
-    }
-    
-    func moonSign(req: Request) throws -> MoonSign {
-        let birth = try req.query.decode(BirthMoment.self)
+    func getMoonSign(req: Request) throws -> String {
+        let birth = try req.query.decode(GetMoonSignParams.self)
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm"
@@ -42,6 +40,6 @@ struct SignController: RouteCollection {
         
         let moonCoordinate = PlanetCoordinate(planet: .moon, date: formattedDate)
         let sign = moonCoordinate.tropicalZodiacPosition.sign
-        return MoonSign(sign: sign.formattedShort)
+        return sign.formattedShort
     }
 }
