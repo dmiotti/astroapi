@@ -129,7 +129,7 @@
       },
       {
         "package": "SwissEphemeris",
-        "repositoryURL": "https://github.com/vsmithers1087/SwissEphemeris",
+        "repositoryURL": "https://github.com/dmiotti/SwissEphemeris",
         "state": {
           "branch": null,
           "revision": "0bd9936200e5b6a589415b392b108a2ecd9de964",
