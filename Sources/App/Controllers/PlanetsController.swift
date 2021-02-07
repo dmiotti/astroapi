@@ -37,6 +37,6 @@ struct PlanetsController: RouteCollection {
         
         let moonCoordinate = PlanetCoordinate(planet: .moon, date: formattedDate)
         let sign = moonCoordinate.tropicalZodiacPosition.sign
-        return MoonSignResponse(sign: sign.formattedShort, degree: moonCoordinate.degree)
+        return MoonSignResponse(sign: sign.formattedShort, degree: moonCoordinate.tropicalZodiacPosition.degree)
     }
 }
