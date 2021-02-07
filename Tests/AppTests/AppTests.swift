@@ -18,31 +18,31 @@ final class AppTests: XCTestCase {
         defer { app.shutdown() }
         try configure(app)
         
-        try app.test(.GET, "/sign/moon?tz=CET&dt=1986-10-16T14:20") { res in
+        try app.test(.GET, "/sign/moon?tz=3600&dt=1986-10-16T14:20") { res in
             XCTAssertEqual(res.status, .ok)
             XCTAssertEqual(res.content.contentType, .plainText)
             XCTAssertEqual(res.body.string, "♈︎", "David Miotti‘s birth moon sign")
         }
         
-        try app.test(.GET, "/sign/moon?tz=EST&dt=1989-12-13T05:17") { res in
+        try app.test(.GET, "/sign/moon?tz=-18000&dt=1989-12-13T05:17") { res in
             XCTAssertEqual(res.status, .ok)
             XCTAssertEqual(res.content.contentType, .plainText)
             XCTAssertEqual(res.body.string, "♋︎", "Tailor Swift‘s birth moon sign")
         }
         
-        try app.test(.GET, "/sign/moon?tz=EST&dt=1964-07-18T21:30") { res in
+        try app.test(.GET, "/sign/moon?tz=-18000&dt=1964-07-18T21:30") { res in
             XCTAssertEqual(res.status, .ok)
             XCTAssertEqual(res.content.contentType, .plainText)
             XCTAssertEqual(res.body.string, "♏︎", "Wendy Williams‘s birth moon sign")
         }
         
-        try app.test(.GET, "/sign/moon?tz=CET&dt=1947-11-23T23:00") { res in
+        try app.test(.GET, "/sign/moon?tz=3600&dt=1947-11-23T23:00") { res in
             XCTAssertEqual(res.status, .ok)
             XCTAssertEqual(res.content.contentType, .plainText)
             XCTAssertEqual(res.body.string, "♈︎", "Jean-Pierre Foucault‘s birth moon sign")
         }
         
-        try app.test(.GET, "/sign/moon?tz=PST&dt=1942-11-27T10:15") { res in
+        try app.test(.GET, "/sign/moon?tz=-25200&dt=1942-11-27T10:15") { res in
             XCTAssertEqual(res.status, .ok)
             XCTAssertEqual(res.content.contentType, .plainText)
             XCTAssertEqual(res.body.string, "♋︎", "Jimmi Hendrix‘s birth moon sign")

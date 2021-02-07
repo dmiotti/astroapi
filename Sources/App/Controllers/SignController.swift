@@ -11,7 +11,7 @@ import SwissEphemeris
 
 struct GetMoonSignParams: Content {
     var dt: String
-    var tz: String
+    var tz: Int
 }
 
 struct SignController: RouteCollection {
@@ -29,7 +29,7 @@ struct SignController: RouteCollection {
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm"
-        dateFormatter.timeZone = TimeZone(abbreviation: birth.tz)
+        dateFormatter.timeZone = TimeZone(secondsFromGMT: birth.tz)
         
         guard let formattedDate = dateFormatter.date(from: birth.dt) else {
             throw Abort(.badRequest)
