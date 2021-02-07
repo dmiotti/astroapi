@@ -1,30 +1,27 @@
-//
-//  MoonSignController.swift
-//  
-//
-//  Created by David Miotti on 03/02/2021.
-//
-
 import Foundation
 import Vapor
 import SwissEphemeris
 
-struct GetMoonSignParams: Content {
-    var dt: String
-    var tz: Int
-}
-
-struct SignController: RouteCollection {
+struct PlanetsController: RouteCollection {
 
     func boot(routes: RoutesBuilder) throws {
-        let sign = routes.grouped("sign")
+        let sign = routes.grouped("planets")
         sign.get("moon", use: getMoonSign)
     }
     
     // the Swiss Ephemeris library is not thread safe
     private let semaphore = DispatchSemaphore(value: 1)
     
-    func getMoonSign(req: Request) throws -> String {
+    // GET /moon returns the Moon‘s sign and degree at a given date
+    struct GetMoonSignParams: Content {
+        var dt: String
+        var tz: Int
+    }
+    struct MoonSignResponse: Content {
+        var sign: String
+        var degree: Double
+    }
+    func getMoonSign(req: Request) throws -> MoonSignResponse {
         let birth = try req.query.decode(GetMoonSignParams.self)
         
         let dateFormatter = DateFormatter()
@@ -40,6 +37,6 @@ struct SignController: RouteCollection {
         
         let moonCoordinate = PlanetCoordinate(planet: .moon, date: formattedDate)
         let sign = moonCoordinate.tropicalZodiacPosition.sign
-        return sign.formattedShort
+        return MoonSignResponse(sign: sign.formattedShort, degree: moonCoordinate.degree)
     }
 }
