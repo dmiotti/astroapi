@@ -1,6 +1,6 @@
 # AstroApi
 
-An api for [Astrot Bistrot](https://astrobistro.com).
+An api for [Astrot Bistrot](https://astrobistrot.com).
 
 ## Exposed API
 
